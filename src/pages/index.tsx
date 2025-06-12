@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { addMessage } from "../redux/chatSlice"
 import socket from "../socket"
 import ChatHeader from "../components/ChatHeader"
+import ChatContainer from "../components/ChatContainer"
+import { Send } from "lucide-react"
 
 interface RootState {
   chat: {
@@ -59,21 +61,7 @@ const Home: React.FC = () => {
       <div className="container mx-auto max-w-4xl h-screen flex flex-col">
         <div className="flex-1 bg-background shadow-xl rounded-lg overflow-hidden border m-4 flex flex-col">
           <ChatHeader />
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`flex items-start space-x-2 ${msg.sender === "You" ? "justify-end" : "justify-start"}`}
-            >
-              {/* Display the message sender (You or Other) */}
-              <span
-                className={`font-semibold ${msg.sender === "You" ? "text-green-500" : "text-blue-500"}`}
-              >
-                {msg.sender}:
-              </span>
-              {/* Message text */}
-              <span>{msg.text}</span>
-            </div>
-          ))}
+          <ChatContainer messages={messages} />
         </div>
         <div className="flex mt-4 space-x-2">
           <input
@@ -85,9 +73,9 @@ const Home: React.FC = () => {
           />
           <button
             onClick={handleSendMessage}
-            className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+            className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 flex justify-center items-center transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Send
+            Send <Send className="w-4 h-4" />
           </button>
         </div>
       </div>
