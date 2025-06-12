@@ -13,9 +13,15 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
   isOwn,
   timestamp,
 }) => {
+  const formattedTime = timestamp
+    ? new Date(timestamp).toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      })
+    : ""
   return (
     <div
-      className={`flex w-full mb-4 animate-fade-in ${
+      className={`flex w-full mb-4 mt-1 -ml-1 animate-fade-in ${
         isOwn ? "justify-end" : "justify-start"
       }`}
     >
@@ -42,7 +48,7 @@ const ChatBubble: React.FC<ChatBubbleProps> = ({
               isOwn ? "text-blue-100" : "text-muted-foreground"
             }`}
           >
-            {timestamp}
+            {formattedTime}
           </div>
         )}
       </div>
